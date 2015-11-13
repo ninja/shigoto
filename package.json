@@ -1,0 +1,33 @@
+{
+  "bin": {"shigoto": "./bin.js"},
+  "description": "Shigoto 仕事 - Run project scripts anywhere.",
+  "devDependencies": {
+    "eslint": "^1.9.0",
+    "eslint-config-ninja": "^1.1.0",
+    "tap-spec": "^4.1.0",
+    "tape": "^4.2.2"
+  },
+  "engines": {"node": "^5"},
+  "license": "Apache-2.0",
+  "name": "shigoto",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ninja/shigoto"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "ls": "npm ls --depth 0",
+    "outdated": "npm outdated --depth 0",
+    "preinstall": "npm prune",
+    "prepublish": "npm test",
+    "pretest": "npm run lint",
+    "test": "tape test.js | tap-spec"
+  },
+  "scriptsInfo": {
+    "lint": "Verifies source code meets syntax/style rules.",
+    "ls": "Lists dependencies (top-level).",
+    "outdated": "Lists outdated dependencies (top-level).",
+    "test": "Runs tests."
+  },
+  "version": "1.0.0"
+}
