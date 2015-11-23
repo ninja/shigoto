@@ -2,22 +2,17 @@
 'use strict';
 
 const argv = process.argv.slice(2);
+const path = `${__dirname}/package.json`;
 const stat = require('fs').stat;
-const resolve = require('path').resolve;
-let cwd;
-let config;
 
-stat(resolve(__dirname, '../../package.json'), function (error) {
-  if (error) {
-    cwd = __dirname;
-    config = require('./package.json');
-  }
-  else {
-    cwd = resolve(__dirname, '../..');
-    config = require('../../package.json');
-  }
+stat(path, function (error) {
+  if (error) { return console.error('No package found.'); }
 
+  const config = require(path);
   const scripts = Object.keys(config.scripts);
+
+  if (!scripts) { return console.error('No scripts found in package.json'); }
+
   const scriptsInfo = config.scriptsInfo;
 
   if (!argv.length) {
@@ -38,7 +33,7 @@ stat(resolve(__dirname, '../../package.json'), function (error) {
 
   require('child_process').spawnSync('npm', argv, {
     env: process.env,
-    cwd: cwd,
+    cwd: __dirname,
     stdio: 'inherit'
   });
 });

@@ -1,15 +1,20 @@
-## Shigoto 仕事 - Run npm scripts anywhere.
+## Shigoto - Run npm scripts anywhere.
 
-If you frequently type `npm lint` vs. `npm run lint` and/or find yourself located in the wrong project directory when executing npm commands, this is the module for you!
+Forget to type `run` between `npm` and your script name?
+Execute npm commands in the wrong directory?
+
+This is the module for you!
 
 ~/example/package.json
 
 ```json
 {
-  "bin": {"sayjs": "./node_modules/shigoto/bin.js"},
+  "bin": "build/utter.js",
+  "name": "utter",
   "scripts": {
-    "hello": "node say.js",
-    "goodbye": "node say.js --goodbye"
+    "build": "cp node_modules/shigoto/bin.js build/utter.js",
+    "hello": "node utter.js",
+    "goodbye": "node utter.js --goodbye"
   },
   "scriptsInfo": {
     "hello": "Say hello. `hello --to <person>`",
@@ -18,7 +23,7 @@ If you frequently type `npm lint` vs. `npm run lint` and/or find yourself locate
 }
 ```
 
-~/example/say.js
+~/example/utter.js
 
 ```javascript
 const goodbye = process.env.npm_config_goodbye;
@@ -33,19 +38,19 @@ npm install shigoto --save-dev
 npm link
 cd ~
 
-sayjs
+utter
 hello - Say hello. `hello --to <person>`
 goodbye - Say goodbye. `goodbye --to <person>`
 
-sayjs hello
+utter hello
 Hello!
 
-sayjs hello --to Jamie
+utter hello --to Jamie
 Hello Jamie!
 
-sayjs goodbye
+utter goodbye
 Goodbye!
 
-sayjs goodbye --to Jamie
+utter goodbye --to Jamie
 Goodbye Jamie!
 ```
