@@ -30,5 +30,5 @@
     "outdated": "Lists outdated dependencies (top-level).",
     "test": "Runs tests."
   },
-  "version": "1.0.1"
+  "version": "1.0.2"
 }

@@ -2,38 +2,48 @@
 'use strict';
 
 const argv = process.argv.slice(2);
-const path = `${__dirname}/package.json`;
+const resolve = require('path').resolve;
 const stat = require('fs').stat;
 
-stat(path, function (error) {
-  if (error) { return console.error('No package found.'); }
+function findPackage (context) {
+  const path = resolve(__dirname, context, 'package.json');
 
-  const config = require(path);
-  const scripts = Object.keys(config.scripts);
+  stat(path, function (error) {
+    if (error) {
+      if (context === '..') { return console.error('No package found.'); }
 
-  if (!scripts) { return console.error('No scripts found in package.json'); }
+      return findPackage('..');
+    }
 
-  const scriptsInfo = config.scriptsInfo;
+    const config = require(path);
+    const scripts = Object.keys(config.scripts);
 
-  if (!argv.length) {
-    return scripts.forEach(script => {
-      const prefix = script.slice(0, 3);
+    if (!scripts) { return console.error('No scripts found in package.json'); }
 
-      if (['pre', 'post'].indexOf(prefix) > -1) { return; }
-      if (!scriptsInfo || !scriptsInfo[script]) { return console.log(script); }
+    const scriptsInfo = config.scriptsInfo;
 
-      console.log(`${script} - ${scriptsInfo[script]}`);
+    if (!argv.length) {
+      return scripts.forEach(script => {
+        const prefix = script.slice(0, 3);
+
+        if (['pre', 'post'].indexOf(prefix) > -1) { return; }
+        if (!scriptsInfo || !scriptsInfo[script]) { return console.log(script); }
+
+        console.log(`${script} - ${scriptsInfo[script]}`);
+      });
+    }
+
+    if (scripts.find(script => script === argv[0])) {
+      argv.unshift('run');
+      argv.push('-s');
+    }
+
+    require('child_process').spawnSync('npm', argv, {
+      env: process.env,
+      cwd: resolve(__dirname, context),
+      stdio: 'inherit'
     });
-  }
-
-  if (scripts.find(script => script === argv[0])) {
-    argv.unshift('run');
-    argv.push('-s');
-  }
-
-  require('child_process').spawnSync('npm', argv, {
-    env: process.env,
-    cwd: __dirname,
-    stdio: 'inherit'
   });
-});
+}
+
+findPackage('.');
