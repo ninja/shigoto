@@ -4,6 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.4] - 2016-01-07
+### Changed
+- Removes minimum version of Node.
+- Updates development dependency versions.
+
 ## [1.0.3] - 2015-12-14
 ### Changed
 - Lowers minimum version of Node to 4 (was 5).
@@ -30,8 +35,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Passes command and arguments to npm script with found context.
 - Tests.
 
-[Unreleased]: https://github.com/ninja/shigoto/compare/1.0.3...develop
-[1.0.3]: https://github.com/ninja/shigoto/compare/1.0.2...1.0.3
-[1.0.2]: https://github.com/ninja/shigoto/compare/1.0.1...1.0.2
-[1.0.1]: https://github.com/ninja/shigoto/compare/1.0.0...1.0.1
+[Unreleased]: https://github.com/ninja/shigoto/compare/develop...1.0.4
+[1.0.4]: https://github.com/ninja/shigoto/compare/1.0.4...1.0.3
+[1.0.3]: https://github.com/ninja/shigoto/compare/1.0.3...1.0.2
+[1.0.2]: https://github.com/ninja/shigoto/compare/1.0.2...1.0.1
+[1.0.1]: https://github.com/ninja/shigoto/compare/1.0.1...1.0.0
 [1.0.0]: https://github.com/ninja/shigoto/compare/1.0.0
